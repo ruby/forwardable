@@ -6,9 +6,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Keiju ISHITSUKA"]
   spec.email         = ["keiju@ruby-lang.org"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Provides delegation of specified methods to a designated object.}
+  spec.description   = %q{Provides delegation of specified methods to a designated object.}
+  spec.homepage      = "https://github.com/ruby/forwardable"
   spec.license       = "BSD-2-Clause"
 
   # Specify which files should be added to the gem when it is released.
