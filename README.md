@@ -1,8 +1,6 @@
 # Forwardable
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/forwardable`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+The Forwardable module provides delegation of specified methods to a designated object, using the methods #def_delegator and #def_delegators.
 
 ## Installation
 
@@ -22,7 +20,49 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+For example, say you have a class RecordCollection which contains an array <tt>@records</tt>.  You could provide the lookup ethod `#record_number()`, which simply calls #[] on the <tt>@records</tt> array, like this:
+
+```
+  require 'forwardable'
+
+  class RecordCollection
+    attr_accessor :records
+    extend Forwardable
+    def_delegator :@records, :[], :record_number
+  end
+```
+
+We can use the lookup method like so:
+
+```
+  r = RecordCollection.new
+  r.records = [4,5,6]
+  r.record_number(0)  # => 4
+```
+
+Further, if you wish to provide the methods #size, #<<, and #map, all of which delegate to @records, this is how you can do it:
+
+```
+  class RecordCollection # re-open RecordCollection class
+    def_delegators :@records, :size, :<<, :map
+  end
+
+  r = RecordCollection.new
+  r.records = [1,2,3]
+  r.record_number(0)   # => 1
+  r.size               # => 3
+  r << 4               # => [1, 2, 3, 4]
+  r.map { |x| x * 2 }  # => [2, 4, 6, 8]
+```
+
+You can even extend regular objects with Forwardable.
+
+```
+  my_hash = Hash.new
+  my_hash.extend Forwardable              # prepare object for delegation
+  my_hash.def_delegator "STDOUT", "puts"  # add delegation for STDOUT.puts()
+  my_hash.puts "Howdy!"
+```
 
 ## Development
 
