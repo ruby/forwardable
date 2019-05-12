@@ -154,9 +154,7 @@ module Forwardable
   def def_instance_delegators(accessor, *methods)
     methods.delete("__send__")
     methods.delete("__id__")
-    for method in methods
-      def_instance_delegator(accessor, method)
-    end
+    methods.each { |method|  def_instance_delegator(accessor, method) }
   end
 
   # Define +method+ as delegator instance method with an optional
@@ -286,9 +284,7 @@ module SingleForwardable
   def def_single_delegators(accessor, *methods)
     methods.delete("__send__")
     methods.delete("__id__")
-    for method in methods
-      def_single_delegator(accessor, method)
-    end
+    methods.each { |method| def_single_delegator(accessor, method) }
   end
 
   # :call-seq:
