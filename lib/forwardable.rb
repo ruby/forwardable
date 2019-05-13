@@ -132,11 +132,7 @@ module Forwardable
   #
   def instance_delegate(hash)
     hash.each do |methods, accessor|
-      if methods.respond_to?(:each)
-        methods.each { |method| def_instance_delegator(accessor, method) }
-      else
-        def_instance_delegator(accessor, methods)
-      end
+      def_instance_delegators(accessor, *Array(methods))
     end
   end
 
