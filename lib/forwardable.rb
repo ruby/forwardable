@@ -148,9 +148,8 @@ module Forwardable
   #   def_delegator :@records, :map
   #
   def def_instance_delegators(accessor, *methods)
-    methods.delete("__send__")
-    methods.delete("__id__")
-    for method in methods
+    methods.each do |method|
+      next if /\A__(?:send|id)__\z/ =~ method
       def_instance_delegator(accessor, method)
     end
   end
@@ -280,9 +279,8 @@ module SingleForwardable
   #   def_delegator :@records, :map
   #
   def def_single_delegators(accessor, *methods)
-    methods.delete("__send__")
-    methods.delete("__id__")
-    for method in methods
+    methods.each do |method|
+      next if /\A__(?:send|id)__\z/ =~ method
       def_single_delegator(accessor, method)
     end
   end
