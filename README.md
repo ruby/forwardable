@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-For example, say you have a class RecordCollection which contains an array <tt>@records</tt>.  You could provide the lookup ethod `#record_number()`, which simply calls #[] on the <tt>@records</tt> array, like this:
+For example, say you have a class RecordCollection which contains an array <tt>@records</tt>.  You could provide the lookup method `#record_number()`, which simply calls #[] on the <tt>@records</tt> array, like this:
 
 ```
   require 'forwardable'
