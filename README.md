@@ -1,10 +1,10 @@
 # Forwardable
 
-The Forwardable module provides delegation of specified methods to a designated object, using the methods #def_delegator and #def_delegators.
+The Forwardable module provides delegation of specified methods to a designated object, using the methods `#def_delegator` and `#def_delegators`.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ```ruby
 gem 'forwardable'
@@ -12,17 +12,21 @@ gem 'forwardable'
 
 And then execute:
 
-    $ bundle
+```sh
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install forwardable
+```sh
+$ gem install forwardable
+```
 
 ## Usage
 
-For example, say you have a class RecordCollection which contains an array <tt>@records</tt>.  You could provide the lookup method `#record_number()`, which simply calls #[] on the <tt>@records</tt> array, like this:
+For example, say you have a class `RecordCollection` which contains an array `@records`.  You could provide the lookup method `#record_number()`, which simply calls `#[]` on the `@records` array, like this:
 
-```
+```ruby
   require 'forwardable'
 
   class RecordCollection
@@ -34,15 +38,15 @@ For example, say you have a class RecordCollection which contains an array <tt>@
 
 We can use the lookup method like so:
 
-```
+```ruby
   r = RecordCollection.new
   r.records = [4,5,6]
   r.record_number(0)  # => 4
 ```
 
-Further, if you wish to provide the methods #size, #<<, and #map, all of which delegate to @records, this is how you can do it:
+Further, if you wish to provide the methods `#size`, `#<<`, and `#map`, all of which delegate to `@records`, this is how you can do it:
 
-```
+```ruby
   class RecordCollection # re-open RecordCollection class
     def_delegators :@records, :size, :<<, :map
   end
@@ -57,7 +61,7 @@ Further, if you wish to provide the methods #size, #<<, and #map, all of which d
 
 You can even extend regular objects with Forwardable.
 
-```
+```ruby
   my_hash = Hash.new
   my_hash.extend Forwardable              # prepare object for delegation
   my_hash.def_delegator "STDOUT", "puts"  # add delegation for STDOUT.puts()
